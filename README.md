@@ -71,40 +71,36 @@ You can obtain the cryptocurrency implied volatility forecasting dataset from:
 
 - **Primary Source**: [Kaggle Competition - Crypto Implied Volatility Forecasting](https://www.kaggle.com/competitions/gq-implied-volatility-forecasting)
 
-The dataset contains high-frequency order book data for 7 cryptocurrencies:
-
-- **Assets**: ETH, BTC, DOGE, DOT, LINK, SHIB, SOL
-- **Frequency**: 1-second resolution
-- **Features**: Order book snapshots with 5 bid/ask levels
-- **Target**: Implied volatility labels (training data only)
-- **Time Period**: Multiple months of continuous trading data
-
 ## Quick Start
 
-### 1. Run the Complete Pipeline
+### Run the Complete Pipeline
+
+#### Option A: Using Jupyter Notebook
 
 ```bash
 jupyter notebook eth_volatility_prediction.ipynb
 ```
 
-Execute all cells sequentially to:
+#### Option B: Using Python Scripts
 
-- Load and explore the data
-- Engineer features
-- Train the Transformer model
-- Generate predictions
-- Analyze results
+```bash
+# Run the complete pipeline
+python main.py --mode full --verbose
 
-### 2. Model Training
+# Or run individual components
+python main.py --mode data    # Data processing only
+python main.py --mode train   # Training only
+python main.py --mode predict # Prediction only
+```
 
-The notebook automatically:
+**Script Parameters:**
 
-- Splits data using time series validation (80/20)
-- Trains for 30 epochs with early stopping
-- Saves best model weights to `best_model.pth`
-- Generates training/validation loss plots
+- `--mode`: Choose 'full', 'data', 'train', or 'predict'
+- `--verbose`: Enable detailed logging
+- `--model-path`: Specify model save/load path
+- `--output`: Specify output file pathtion-based time series model for cryptocurrency implied volatility prediction using order book imbalance and cross-asset correlation features.
 
-### 3. Generate Predictions
+### Generate Predictions
 
 Final predictions are saved to `transformer_submission.csv` in the required format:
 
@@ -114,26 +110,6 @@ timestamp,labels
 2,0.00023456
 ...
 ```
-
-## Trading Strategy Framework
-
-### Volatility Regime Detection
-
-- **Low Volatility** (< 25th percentile): Sell volatility strategies
-- **High Volatility** (> 75th percentile): Buy volatility strategies
-- **Medium Volatility**: Delta-neutral approaches
-
-### Risk Management
-
-- **Position Sizing**: Based on prediction confidence
-- **Stop Losses**: 2-3x expected volatility moves
-- **Maximum Exposure**: 5% portfolio allocation per position
-
-### Real-time Implementation
-
-- **Latency Target**: < 5ms total system latency
-- **Memory Usage**: < 500MB runtime memory
-- **Throughput**: 1000+ predictions per second
 
 ## Production Deployment
 
@@ -153,13 +129,6 @@ def predict_volatility(order_book_data):
         prediction = model(sequence)
     return prediction.item()
 ```
-
-### Monitoring & Maintenance
-
-- **Model Drift Detection**: Statistical tests on prediction distributions
-- **Performance Monitoring**: Real-time correlation tracking
-- **Retraining Schedule**: Weekly model updates with new data
-- **A/B Testing**: Gradual rollout of model improvements
 
 ## Contributing
 

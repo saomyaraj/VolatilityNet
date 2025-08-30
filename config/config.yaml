@@ -1,0 +1,39 @@
+# Model Configuration
+model:
+  d_model: 128
+  nhead: 8
+  num_layers: 4
+  dropout: 0.1
+
+# Training Configuration
+training:
+  batch_size: 32
+  learning_rate: 0.001
+  num_epochs: 30
+  validation_split: 0.8
+
+# Data Configuration
+data:
+  symbol: "ETH"
+  max_rows: 50000
+  sequence_length: 60
+  prediction_horizon: 10
+  top_features: 50
+
+# Feature Engineering
+features:
+  technical_windows: [5, 10, 20, 50]
+  lag_periods: [1, 2, 3, 5, 10]
+
+# Paths
+paths:
+  data_dir: "gq-implied-volatility-forecasting"
+  model_dir: "models"
+  output_dir: "output"
+
+# Logging
+logging:
+  level: "INFO"
+
+# Random Seed
+random_seed: 42
