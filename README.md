@@ -1,4 +1,4 @@
-# ETH Implied Volatility Prediction using Transformer Models
+# ETH Implied Volatility Prediction using Multi-head Attention Transformer
 
 Deep attention-based time series model for cryptocurrency implied volatility prediction using order book imbalance and cross-asset correlation features.
 
